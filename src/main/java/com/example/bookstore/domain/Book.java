@@ -1,13 +1,37 @@
 package com.example.bookstore.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Book {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 	private String title;
 	private String author;
 	private int year;
 	private String isbn;
 	private int price;
 	
+	public Book(Long id) {
+		super();
+		this.id = id;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	public Book() {}
+
 	public Book(String title, String author, int year, String isbn, int price) {
 		super();
 		this.title = title;

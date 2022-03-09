@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.example.bookstore.domain.BookRepository;
+import com.example.bookstore.domain.CategoryRepository;
+import com.example.bookstore.domain.Category;
 import com.example.bookstore.domain.Book;
 
 @SpringBootApplication
@@ -16,9 +18,16 @@ public class BookstoreApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner demo(BookRepository repository) {return (args) -> {
-		repository.save(new Book("A Farewell to Arms", "Ernest Hemingway", 1929, "345634-9", 20));
-		repository.save(new Book("Animal Farm", "George Orwell", 1945, "23552-78", 20));
+	public CommandLineRunner demo(BookRepository brepository, CategoryRepository crepository) {return (args) -> {
+		
+		crepository.save(new Category("Fiction"));
+		crepository.save(new Category("History"));
+		crepository.save(new Category("Fantasy"));
+		crepository.save(new Category("Horror"));
+		
+		brepository.save(new Book("A Farewell to Arms", "Ernest Hemingway", 1929, "345634-9", 20, crepository.findByName("History").get(0)));
+		
+		
 	};
 	}
 
